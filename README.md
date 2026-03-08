@@ -31,11 +31,11 @@ https://air-quality-health-impact-classification-77jrpmgomdahspas8mapx.streamlit
 
 # 📌 Project Highlights
 
-- ✔ End-to-End Machine Learning Pipeline
-- ✔ Interactive Web App using **Streamlit**
-- ✔ Pollution Feature Analysis with **EDA**
-- ✔ Real-time Health Risk Prediction
-- ✔ Clean UI with user-friendly controls
+ * End-to-End Machine Learning Pipeline
+ * Interactive Web App using **Streamlit**
+ * Pollution Feature Analysis with **EDA**
+ * Real-time Health Risk Prediction
+ * Clean UI with user-friendly controls
 
 ---
 
@@ -191,7 +191,7 @@ A fully interactive **Streamlit web app** was built to make predictions easily.
 Run locally:
 
 ```
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
 ---
@@ -297,6 +297,7 @@ If you would like to improve this project:
 # 👩‍💻 Author
 
 **P Vaishnavi**
+
 Aspiring **Data Scientist | Machine Learning Enthusiast**
 
 ---

@@ -250,7 +250,7 @@ st.caption(
 """
 Air Quality Health Impact Classification  
 Machine Learning Deployment Project  
-Built with **Streamlit + Scikit-Learn**
+
 """
 
 )

@@ -1,11 +1,10 @@
+```python
 # ==========================================
-# Air Quality & Health Impact Prediction App
+# Air Quality & Health Impact Dashboard (UI Only)
 # ==========================================
 
 import streamlit as st
-import numpy as np
 import pandas as pd
-import joblib
 
 
 # ==========================================
@@ -13,38 +12,21 @@ import joblib
 # ==========================================
 
 st.set_page_config(
-    page_title="Air Quality Health Impact Predictor",
+    page_title="Air Quality Health Dashboard",
     page_icon="🌍",
     layout="wide"
 )
 
-st.title("🌍 Air Quality & Health Impact Classification Dashboard")
+st.title("🌍 Air Quality & Health Impact Dashboard")
+
 st.markdown(
 """
-Predict **Health Impact Severity** using environmental and healthcare indicators.
-
-Model Used: **Random Forest Classifier**
+Interactive dashboard for monitoring **air pollution indicators, environmental conditions,
+and related healthcare metrics**.
 """
 )
 
 st.divider()
-
-
-# ==========================================
-# Load Model Safely
-# ==========================================
-
-@st.cache_resource
-def load_model():
-    try:
-        model = joblib.load("model/random_forest.pkl")
-        scaler = joblib.load("model/scaler.pkl")
-        return model, scaler
-    except:
-        st.error("Model files not found. Please ensure `.pkl` files exist in /model folder.")
-        st.stop()
-
-model, scaler = load_model()
 
 
 # ==========================================
@@ -79,62 +61,10 @@ HealthImpactScore = st.sidebar.number_input("Health Impact Score", 0.0, 100.0, 9
 
 
 # ==========================================
-# Prediction Section
+# AQI Category Section
 # ==========================================
 
-st.header("🔍 Prediction")
-
-if st.button("Predict Health Impact", use_container_width=True):
-
-    input_data = np.array([[
-
-        AQI,
-        PM10,
-        PM2_5,
-        NO2,
-        SO2,
-        O3,
-        Temperature,
-        Humidity,
-        WindSpeed,
-        RespiratoryCases,
-        CardiovascularCases,
-        HospitalAdmissions,
-        HealthImpactScore
-
-    ]])
-
-    input_scaled = scaler.transform(input_data)
-
-    prediction = model.predict(input_scaled)[0]
-
-    labels = {
-        0: "🟢 Low Impact",
-        1: "🟡 Mild Impact",
-        2: "🟠 Moderate Impact",
-        3: "🔴 High Impact",
-        4: "⚠️ Severe Impact"
-    }
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.success(f"Predicted Class: **{prediction}**")
-        st.info(labels[prediction])
-
-    with col2:
-        risk_percent = (prediction + 1) * 20
-        st.progress(risk_percent)
-        st.write(f"Estimated Health Risk: **{risk_percent}%**")
-
-st.divider()
-
-
-# ==========================================
-# AQI Category
-# ==========================================
-
-st.header("🌫 AQI Category")
+st.header("🌫 Air Quality Index (AQI)")
 
 if AQI <= 50:
     category = "Good"
@@ -157,40 +87,37 @@ with col1:
 with col2:
     st.write(f"Air Quality Category: **{category}**")
 
+st.divider()
+
+
+# ==========================================
+# Pollution Charts
+# ==========================================
+
+st.header("📊 Air Pollution Indicators")
+
+pollution_df = pd.DataFrame({
+    "Pollutant": ["PM10", "PM2.5", "NO2", "SO2", "O3"],
+    "Value": [PM10, PM2_5, NO2, SO2, O3]
+})
+
+st.bar_chart(pollution_df.set_index("Pollutant"))
 
 st.divider()
 
 
 # ==========================================
-# Charts Section
+# Environmental Conditions
 # ==========================================
 
-st.header("📊 Air Pollution Dashboard")
+st.header("🌡 Environmental Conditions")
 
-col1, col2 = st.columns(2)
+env_df = pd.DataFrame({
+    "Metric": ["Temperature", "Humidity", "Wind Speed"],
+    "Value": [Temperature, Humidity, WindSpeed]
+})
 
-with col1:
-
-    st.subheader("Pollution Indicators")
-
-    pollution_df = pd.DataFrame({
-        "Pollutant": ["PM10", "PM2.5", "NO2", "SO2", "O3"],
-        "Value": [PM10, PM2_5, NO2, SO2, O3]
-    })
-
-    st.bar_chart(pollution_df.set_index("Pollutant"))
-
-with col2:
-
-    st.subheader("Environmental Conditions")
-
-    env_df = pd.DataFrame({
-        "Metric": ["Temperature", "Humidity", "Wind Speed"],
-        "Value": [Temperature, Humidity, WindSpeed]
-    })
-
-    st.line_chart(env_df.set_index("Metric"))
-
+st.line_chart(env_df.set_index("Metric"))
 
 st.divider()
 
@@ -216,41 +143,29 @@ health_df = pd.DataFrame({
 
 st.bar_chart(health_df.set_index("Indicator"))
 
+st.divider()
+
 
 # ==========================================
-# Feature Importance
+# Health Impact Score Display
 # ==========================================
 
-st.header("🔎 Feature Importance")
+st.header("📉 Health Impact Score")
 
-importance = model.feature_importances_
+st.metric("Health Impact Score", HealthImpactScore)
 
-features = [
-"AQI","PM10","PM2_5","NO2","SO2","O3",
-"Temperature","Humidity","WindSpeed",
-"RespiratoryCases","CardiovascularCases",
-"HospitalAdmissions","HealthImpactScore"
-]
-
-importance_df = pd.DataFrame({
-"Feature": features,
-"Importance": importance
-}).sort_values("Importance", ascending=False)
-
-st.bar_chart(importance_df.set_index("Feature"))
+st.divider()
 
 
 # ==========================================
 # Footer
 # ==========================================
 
-st.divider()
-
 st.caption(
 """
-Air Quality Health Impact Classification  
-Machine Learning Deployment Project  
-
+Air Quality Monitoring Dashboard  
+Environmental & Health Indicators Visualization  
+Built with **Streamlit**
 """
-
 )
+```

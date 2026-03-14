@@ -24,7 +24,7 @@ The application allows users to **input air quality parameters and instantly rec
 
 🔗 **Deployment Link**
 
-https://air-quality-health-impact-classification-77jrpmgomdahspas8mapx.streamlit.app/
+https://air-quality-health-impact-classification-bkipnnphaeazqq8kjhzza.streamlit.app/
 
 
 ---

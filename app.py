@@ -77,8 +77,6 @@ HospitalAdmissions = st.sidebar.number_input("Hospital Admissions", 0, 20, 1)
 
 HealthImpactScore = st.sidebar.number_input("Health Impact Score", 0.0, 100.0, 90.0)
 
-st.divider()
-
 
 # ==========================================
 # AQI Category
@@ -199,6 +197,6 @@ st.divider()
 st.caption(
 """
 Air Quality Health Impact Classification  
-Machine Learning Deployment Project  
+Machine Learning Deployment Project
 """
 )

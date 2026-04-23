@@ -1,6 +1,3 @@
-# ==========================================
-# Air Quality & Health Impact Prediction App
-# ==========================================
 
 import streamlit as st
 import numpy as np
@@ -188,15 +185,3 @@ importance_df = pd.DataFrame({
 st.bar_chart(importance_df.set_index("Feature"))
 
 
-# ==========================================
-# Footer
-# ==========================================
-
-st.divider()
-
-st.caption(
-"""
-Air Quality Health Impact Classification  
-Machine Learning Deployment Project
-"""
-)
